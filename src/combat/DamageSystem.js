@@ -120,7 +120,13 @@ export class DamageSystem {
     if (killed) {
       game.jack.score += lifeform.scoreValue;
       game.effects.addSplat(lifeform.x, lifeform.y, lifeform.color);
-      game.audio.playSplat();
+      game.audio.playPositionalSfx("kill", lifeform.x, lifeform.y, game.jack.x, game.jack.y);
+    } else {
+      lifeform.audioHitCooldown = Math.max(0, (lifeform.audioHitCooldown ?? 0) - 0.016);
+      if (lifeform.audioHitCooldown <= 0) {
+        game.audio.playPositionalSfx("hit", lifeform.x, lifeform.y, game.jack.x, game.jack.y);
+        lifeform.audioHitCooldown = 0.16;
+      }
     }
   }
 }

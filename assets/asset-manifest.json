@@ -1,0 +1,633 @@
+{
+  "assets": [
+    {
+      "path": "assets/sprites/jack/idle_N.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 4,
+      "animationType": "idle",
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "notes": "Cleaned Jack sprite sheet. Bottom-center style anchor near the feet. No detached artifact pixels below the body. Keep collision separate from sprite bounds.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 6
+    },
+    {
+      "path": "assets/sprites/jack/idle_NE.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 4,
+      "animationType": "idle",
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "notes": "Cleaned Jack sprite sheet. Bottom-center style anchor near the feet. No detached artifact pixels below the body. Keep collision separate from sprite bounds.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 6
+    },
+    {
+      "path": "assets/sprites/jack/idle_E.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 4,
+      "animationType": "idle",
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "notes": "Cleaned Jack sprite sheet. Bottom-center style anchor near the feet. No detached artifact pixels below the body. Keep collision separate from sprite bounds.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 6
+    },
+    {
+      "path": "assets/sprites/jack/idle_SE.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 4,
+      "animationType": "idle",
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "notes": "Cleaned Jack sprite sheet. Bottom-center style anchor near the feet. No detached artifact pixels below the body. Keep collision separate from sprite bounds.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 6
+    },
+    {
+      "path": "assets/sprites/jack/idle_S.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 4,
+      "animationType": "idle",
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "notes": "Cleaned Jack sprite sheet. Bottom-center style anchor near the feet. No detached artifact pixels below the body. Keep collision separate from sprite bounds.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 6
+    },
+    {
+      "path": "assets/sprites/jack/idle_SW.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 4,
+      "animationType": "idle",
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "notes": "Cleaned Jack sprite sheet. Bottom-center style anchor near the feet. No detached artifact pixels below the body. Keep collision separate from sprite bounds.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 6
+    },
+    {
+      "path": "assets/sprites/jack/idle_W.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 4,
+      "animationType": "idle",
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "notes": "Cleaned Jack sprite sheet. Bottom-center style anchor near the feet. No detached artifact pixels below the body. Keep collision separate from sprite bounds.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 6
+    },
+    {
+      "path": "assets/sprites/jack/idle_NW.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 4,
+      "animationType": "idle",
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "notes": "Cleaned Jack sprite sheet. Bottom-center style anchor near the feet. No detached artifact pixels below the body. Keep collision separate from sprite bounds.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 6
+    },
+    {
+      "path": "assets/sprites/jack/run_N.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 8,
+      "animationType": "run",
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "notes": "Cleaned Jack sprite sheet. Bottom-center style anchor near the feet. No detached artifact pixels below the body. Keep collision separate from sprite bounds.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 10
+    },
+    {
+      "path": "assets/sprites/jack/run_NE.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 8,
+      "animationType": "run",
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "notes": "Cleaned Jack sprite sheet. Bottom-center style anchor near the feet. No detached artifact pixels below the body. Keep collision separate from sprite bounds.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 10
+    },
+    {
+      "path": "assets/sprites/jack/run_E.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 8,
+      "animationType": "run",
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "notes": "Cleaned Jack sprite sheet. Bottom-center style anchor near the feet. No detached artifact pixels below the body. Keep collision separate from sprite bounds.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 10
+    },
+    {
+      "path": "assets/sprites/jack/run_SE.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 8,
+      "animationType": "run",
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "notes": "Cleaned Jack sprite sheet. Bottom-center style anchor near the feet. No detached artifact pixels below the body. Keep collision separate from sprite bounds.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 10
+    },
+    {
+      "path": "assets/sprites/jack/run_S.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 8,
+      "animationType": "run",
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "notes": "Cleaned Jack sprite sheet. Bottom-center style anchor near the feet. No detached artifact pixels below the body. Keep collision separate from sprite bounds.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 10
+    },
+    {
+      "path": "assets/sprites/jack/run_SW.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 8,
+      "animationType": "run",
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "notes": "Cleaned Jack sprite sheet. Bottom-center style anchor near the feet. No detached artifact pixels below the body. Keep collision separate from sprite bounds.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 10
+    },
+    {
+      "path": "assets/sprites/jack/run_W.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 8,
+      "animationType": "run",
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "notes": "Cleaned Jack sprite sheet. Bottom-center style anchor near the feet. No detached artifact pixels below the body. Keep collision separate from sprite bounds.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 10
+    },
+    {
+      "path": "assets/sprites/jack/run_NW.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 8,
+      "animationType": "run",
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "notes": "Cleaned Jack sprite sheet. Bottom-center style anchor near the feet. No detached artifact pixels below the body. Keep collision separate from sprite bounds.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 10
+    },
+    {
+      "path": "assets/sprites/lifeforms/plant_cell.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 6,
+      "animationType": "loop",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "notes": "Looping lifeform sprite.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 8
+    },
+    {
+      "path": "assets/sprites/lifeforms/animal_cell.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 6,
+      "animationType": "loop",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "notes": "Looping lifeform sprite.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 8
+    },
+    {
+      "path": "assets/sprites/lifeforms/fungal_spore.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 6,
+      "animationType": "loop",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "notes": "Looping lifeform sprite.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 8
+    },
+    {
+      "path": "assets/sprites/lifeforms/bacteria.png",
+      "frameWidth": 80,
+      "frameHeight": 80,
+      "frames": 6,
+      "animationType": "loop",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "notes": "Looping lifeform sprite.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 8
+    },
+    {
+      "path": "assets/sprites/lifeforms/virus.png",
+      "frameWidth": 80,
+      "frameHeight": 80,
+      "frames": 6,
+      "animationType": "loop",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "notes": "Looping lifeform sprite.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 8
+    },
+    {
+      "path": "assets/sprites/lifeforms/alien_biomass.png",
+      "frameWidth": 160,
+      "frameHeight": 160,
+      "frames": 8,
+      "animationType": "loop",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "notes": "Looping lifeform sprite.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 8
+    },
+    {
+      "path": "assets/sprites/pickups/weapon_bleach.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 1,
+      "animationType": "single",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "notes": "Pickup icon. Draw centered.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 0
+    },
+    {
+      "path": "assets/sprites/pickups/weapon_flame.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "frames": 1,
+      "animationType": "single",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "notes": "Pickup icon. Draw centered.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 0
+    },
+    {
+      "path": "assets/sprites/pickups/tank_bleach.png",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "frames": 1,
+      "animationType": "single",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "notes": "Pickup icon. Draw centered.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 0
+    },
+    {
+      "path": "assets/sprites/pickups/tank_fuel.png",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "frames": 1,
+      "animationType": "single",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "notes": "Pickup icon. Draw centered.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 0
+    },
+    {
+      "path": "assets/sprites/pickups/sugar_cube.png",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "frames": 1,
+      "animationType": "single",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "notes": "Pickup icon. Draw centered.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 0
+    },
+    {
+      "path": "assets/sprites/effects/bleach_puddle.png",
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frames": 6,
+      "animationType": "loop",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "notes": "Separate pale chemical cloud/bleach effect. Not green. Not baked into Jack.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 8
+    },
+    {
+      "path": "assets/sprites/effects/flame_cone.png",
+      "frameWidth": 192,
+      "frameHeight": 192,
+      "frames": 6,
+      "animationType": "loop",
+      "anchor": [
+        0.02,
+        0.5
+      ],
+      "notes": "Separate flamethrower effect. Left side is emission origin. Anchor tuned in-game so the longer flame starts ahead of Jack instead of overlapping his body.",
+      "drawScale": 1.12,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "sourceInset": {
+        "top": 24,
+        "right": 2
+      },
+      "fps": 12
+    },
+    {
+      "path": "assets/sprites/effects/fungal_mat.png",
+      "frameWidth": 160,
+      "frameHeight": 160,
+      "frames": 6,
+      "animationType": "loop",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "notes": "Separate effect sprite.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 8
+    },
+    {
+      "path": "assets/sprites/effects/alien_tendril_tip.png",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "frames": 4,
+      "animationType": "loop",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "notes": "Separate effect sprite.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 8
+    },
+    {
+      "path": "assets/splash.png",
+      "frameWidth": 1920,
+      "frameHeight": 1080,
+      "frames": 1,
+      "animationType": "screen",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "notes": "Full-screen background/mood art; overlay UI/text in code.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 0
+    },
+    {
+      "path": "assets/death_generic.png",
+      "frameWidth": 1920,
+      "frameHeight": 1080,
+      "frames": 1,
+      "animationType": "screen",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "notes": "Full-screen background/mood art; overlay UI/text in code.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 0
+    },
+    {
+      "path": "assets/death_alien.png",
+      "frameWidth": 1920,
+      "frameHeight": 1080,
+      "frames": 1,
+      "animationType": "screen",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "notes": "Full-screen background/mood art; overlay UI/text in code.",
+      "drawScale": 1.0,
+      "drawOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "fps": 0
+    }
+  ],
+  "assetPack": {
+    "name": "Petri Jack 2D Asset Pack",
+    "version": "0.2-cleaned",
+    "status": "cleaned AI-generated draft asset pack",
+    "jackAnchorPolicy": "Jack sprites use a consistent bottom-center style anchor around [0.5, 0.88] for top-down gameplay. Feet are aligned consistently across frames.",
+    "drawScalePolicy": "Recommended initial drawScale is 1.0. Tweak only in code if needed.",
+    "cleaningNotes": [
+      "Detached artifact pixels/fragments below Jack were removed and frames were re-aligned.",
+      "Jack frames were cleaned to eliminate stray orange/brown debris under the feet.",
+      "Bleach effect is a separate pale chemical cloud sprite and is not baked into Jack frames.",
+      "All Jack sheets preserve transparent backgrounds and uniform frame dimensions."
+    ]
+  }
+}

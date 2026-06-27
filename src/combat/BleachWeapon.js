@@ -28,7 +28,7 @@ export class BleachWeapon extends Weapon {
         y: game.jack.y + Math.sin(behind) * 30,
         radius: 22 + Math.random() * 11,
         age: 0,
-        life: 5.2,
+        life: 10.4,
         damagePerSecond: 18
       });
       game.effects.addSpray(game.jack.x, game.jack.y, behind, "#bffff0");

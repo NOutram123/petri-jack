@@ -1,12 +1,27 @@
 export class SpriteFactory {
+  constructor(assets = null) {
+    this.assets = assets;
+  }
+
   drawJack(ctx, jack, time) {
+    const moving = Math.hypot(jack.vx, jack.vy) > 8;
+    const direction = directionForAngle(jack.facing);
+    const spriteId = `jack.${moving ? "run" : "idle"}.${direction}`;
+    const blink = jack.invulnerable > 0 && Math.floor(time * 18) % 2 === 0;
+    if (this.assets?.drawSprite(ctx, spriteId, jack.x, jack.y, {
+      time,
+      frame: moving ? undefined : 0,
+      scale: 1
+    })) {
+      return;
+    }
+
     ctx.save();
     ctx.translate(jack.x, jack.y);
     ctx.rotate(jack.facing);
 
     const bob = Math.sin(jack.runTime) * 2.2;
     const stride = Math.sin(jack.runTime) * 7;
-    const blink = jack.invulnerable > 0 && Math.floor(time * 18) % 2 === 0;
     ctx.globalAlpha = blink ? 0.58 : 1;
 
     ctx.fillStyle = "#17180d";
@@ -75,6 +90,18 @@ export class SpriteFactory {
   drawLifeform(ctx, lifeform, time) {
     const pulse = 1 + Math.sin(time * 3 + lifeform.pulseOffset) * 0.09;
     const radius = lifeform.radius * pulse;
+    const spriteScale = (radius * 2.4) / frameSizeFor(lifeform.type);
+    if (this.assets?.drawSprite(ctx, `lifeform.${lifeform.type}`, lifeform.x, lifeform.y, {
+      time: time + lifeform.pulseOffset,
+      scale: spriteScale,
+      alpha: lifeform.hitFlash > 0 ? 0.72 : 1
+    })) {
+      if (lifeform.infected) {
+        this.drawInfectionRing(ctx, lifeform, radius, time);
+      }
+      return;
+    }
+
     ctx.save();
     ctx.translate(lifeform.x, lifeform.y);
 
@@ -122,13 +149,20 @@ export class SpriteFactory {
     }
 
     if (lifeform.infected) {
-      ctx.strokeStyle = "rgba(165,165,255,0.88)";
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.arc(0, 0, radius + 5 + Math.sin(time * 8) * 2, 0, Math.PI * 2);
-      ctx.stroke();
+      this.drawInfectionRing(ctx, { x: 0, y: 0 }, radius, time);
     }
 
+    ctx.restore();
+  }
+
+  drawInfectionRing(ctx, target, radius, time) {
+    ctx.save();
+    ctx.translate(target.x, target.y);
+    ctx.strokeStyle = "rgba(165,165,255,0.88)";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(0, 0, radius + 5 + Math.sin(time * 8) * 2, 0, Math.PI * 2);
+    ctx.stroke();
     ctx.restore();
   }
 
@@ -183,4 +217,21 @@ function tendrilFor(type) {
   if (type === "virus") return "rgba(135,125,255,0.58)";
   if (type === "fungus") return "rgba(205,125,255,0.5)";
   return "rgba(255,95,130,0.5)";
+}
+
+function directionForAngle(angle) {
+  const directions = ["E", "SE", "S", "SW", "W", "NW", "N", "NE"];
+  const normalized = (angle + Math.PI * 2) % (Math.PI * 2);
+  const index = Math.round(normalized / (Math.PI / 4)) % directions.length;
+  return directions[index];
+}
+
+function frameSizeFor(type) {
+  if (type === "bacteria" || type === "virus") {
+    return 80;
+  }
+  if (type === "alien") {
+    return 160;
+  }
+  return 96;
 }

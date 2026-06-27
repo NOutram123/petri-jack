@@ -20,11 +20,14 @@ export class FlameWeapon extends Weapon {
     }
 
     this.drain(dt);
+    const muzzleDistance = game.jack.radius + 34;
     this.cone = {
       x: game.jack.x,
       y: game.jack.y,
+      visualX: game.jack.x + Math.cos(game.jack.facing) * muzzleDistance,
+      visualY: game.jack.y + Math.sin(game.jack.facing) * muzzleDistance,
       facing: game.jack.facing,
-      length: 185,
+      length: 255,
       halfAngle: Math.PI / 5,
       damagePerSecond: 46
     };

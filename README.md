@@ -1,6 +1,6 @@
 # Petri Jack
 
-**Petri Jack** is a desktop-first browser PWA game about Jack O'Reilly, a yellow-suited exterminator trapped inside a giant circular Petri dish. The current build includes Phase 1, Phase 2 ecosystem upgrades, and the first Phase 3 alien introduction pass, with procedural bio-horror visuals, custom collisions, procedural audio, and offline-capable PWA wiring.
+**Petri Jack** is a desktop-first browser PWA game about Jack O'Reilly, a yellow-suited exterminator trapped inside a giant circular Petri dish. The current build includes Phase 1, Phase 2 ecosystem upgrades, the first Phase 3 alien introduction pass, and Phase 4 asset-pipeline support with procedural fallbacks, custom collisions, procedural audio, and offline-capable PWA wiring.
 
 ## Current Status
 
@@ -17,7 +17,8 @@ Implemented:
 - Plant cells, animal cells, bacteria, viruses, fungal spores, alien biomass, sugar cubes, weapon pickups, tank pickups, contact damage, lifeform feeding/growth, infection/spawning, alien tendrils, and level clear progression.
 - Bleach trail weapon and flamethrower cone weapon.
 - Bleach/fuel add-on tanks that refill the matching active weapon and display on the minimap.
-- Web Audio API ambient pulse, 25%-volume sci-fi horror beat/riff, spray, flame, hit, pickup, level clear, and game-over sounds.
+- Procedural Web Audio sound design with master, ambience, SFX, UI, weapon-loop, soundtrack, alien, and low-health buses. No external audio samples are required.
+- Asset manifest/loader for Phase 4 sprite sheets, pickups, effects, splash art, and death overlays.
 - Manifest and service worker for PWA/offline basics.
 
 ## How To Run Locally
@@ -91,7 +92,13 @@ Gamepad support is intentionally not part of Phase 1. Add it in Phase 5.
     manifest.json
     service-worker.js
 /assets
+  asset-manifest.json
   icon.svg
+  sprites/
+    jack/
+    lifeforms/
+    pickups/
+    effects/
 index.html
 styles.css
 service-worker.js
@@ -102,6 +109,51 @@ The active service worker is at the repo root so it can control the app root. `s
 
 Simulation state lives in `Game`, entities, combat, and level modules. Rendering is in `render/*`, and the renderer reads game state rather than owning it. Input is mapped to named actions in `Input.js`. Audio is procedural and locked behind the first user gesture to satisfy browser autoplay rules.
 
+## Audio System
+
+`src/game/AudioManager.js` owns the procedural Web Audio graph. It exposes these game-facing calls:
+
+- `unlock()` after the first user gesture.
+- `toggleMute()`.
+- `update(dt, game)` once per frame for dynamic ambience, alien drone, low-health heartbeat, and weapon loop cleanup.
+- `playBleach(dt)` and `playFlame(dt)` for held weapon loops.
+- `playHit()`, `playSplat()` / `playKill()`, `playJackDamage()`, `playPickup()`, `playClear()`, and `playGameOver()`.
+- `playPositionalSfx(name, worldX, worldY, jackX, jackY)` for panned and distance-attenuated sounds.
+
+Volume defaults live in the exported `AUDIO_VOLUME` constants at the top of `AudioManager.js`. Dynamic intensity is calculated from nearby lifeforms, Jack's health, and whether alien dishes/lifeforms are active. The ambience combines audible low-mid dissonant chord pads, sparse horror phrases, subdued wet texture, heartbeat pulses, and organic creaks. `getMixSnapshot()` can be used while debugging live gain levels. The system uses generated oscillators and noise buffers only; it does not require `.wav` or `.ogg` files.
+
+## Phase 4 Asset Pipeline
+
+The game now loads the imported art pack from `assets/asset-manifest.json` through `src/render/AssetManager.js`. Pack notes live in `assets/ASSET_NOTES.md`.
+
+The loader is intentionally forgiving:
+
+- If the manifest or a listed PNG is missing, the game keeps using procedural fallback art.
+- If a listed asset exists, it replaces the matching procedural sprite or screen immediately after refresh.
+- Sprite sheets are horizontal strips with transparent backgrounds.
+- Jack uses cleaned 8-direction `idle` and `run` sheets, 96x96 frames, and a manifest foot anchor of `[0.5, 0.88]`.
+- Lifeforms, pickups, bleach puddles, flame cones, fungal mats, alien tendril tips, splash art, and death art all have manifest entries.
+- Per-asset alignment is read from manifest `anchor`, `drawScale`, and `drawOffset` values. `src/render/AssetTuning.js` is kept for small code-side overrides such as the longer flamethrower emission alignment.
+- Sprite art never controls collision. Entity radii and custom collision checks remain the gameplay source of truth.
+- The current asset pack is `0.2-cleaned`; it replaces the earlier Jack sheets that had detached orange/brown artifacts below the feet.
+
+Expected ZIP import structure:
+
+```text
+assets/asset-manifest.json
+assets/splash.png
+assets/death_generic.png
+assets/death_alien.png
+assets/sprites/jack/*.png
+assets/sprites/lifeforms/*.png
+assets/sprites/pickups/*.png
+assets/sprites/effects/*.png
+```
+
+After importing final art, verify the browser console for missing filenames and run a smoke test through splash, movement, weapon firing, and alien dish progression.
+
+If a browser keeps showing old PWA art, hard refresh the page and unregister the local service worker in DevTools under Application -> Service Workers, or clear site data for `localhost:4173`. The cache version is bumped whenever shipped asset filenames or sprite contents change.
+
 ## Phase 1 Design Assumptions
 
 - The dish size stays roughly stable across levels; difficulty rises through population and aggression.
@@ -111,7 +163,7 @@ Simulation state lives in `Game`, entities, combat, and level modules. Rendering
 - Add-on tanks refill only the matching active weapon. If Jack is unarmed or holding the other weapon, the tank stays in the dish.
 - Sugar cubes are visible in the main playfield but hidden on the minimap. Tank pickups are shown on the minimap.
 - Procedural sprites are placeholders for later asset-driven rendering.
-- `/assets/splash.png` is optional. If added later, the splash screen will use it automatically; otherwise it renders a procedural title background.
+- `/assets/splash.png` and the rest of the Phase 4 art pack are optional. If added later, the renderer uses them automatically; otherwise it renders procedural fallback art.
 
 ## Phase 2 Notes
 
@@ -135,7 +187,7 @@ Simulation state lives in `Game`, entities, combat, and level modules. Rendering
 
 - Balance is intentionally rough and arcade-readable rather than final.
 - There is no settings menu or persistent high score yet.
-- No gamepad, mobile controls, sprite sheets, save games, leaderboard, or complex alien variants are included yet.
+- No gamepad, mobile controls, save games, leaderboard, or complex alien variants are included yet.
 - `P` is currently a temporary developer clear key and should be removed or hidden after full testing.
 - Service-worker updates are simple network-first/offline-fallback behavior and may require refresh after local changes.
 
@@ -193,6 +245,8 @@ Added:
 - Escalating alien variants in later dishes.
 
 ### Phase 4 Upgrades: Asset Upgrade Pass
+
+Status: implemented with the first-pass imported art pack and procedural fallbacks.
 
 Replace procedural placeholders with asset-driven rendering:
 

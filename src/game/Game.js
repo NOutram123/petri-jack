@@ -61,6 +61,7 @@ export class Game {
     this.time += dt;
     this.state.update(dt);
     this.camera.resize(this.renderer.logicalWidth, this.renderer.logicalHeight);
+    this.audio.update(dt, this);
 
     if (this.input.consume("mute")) {
       this.audio.toggleMute();

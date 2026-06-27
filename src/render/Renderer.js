@@ -1,3 +1,4 @@
+import { AssetManager } from "./AssetManager.js";
 import { SpriteFactory } from "./SpriteFactory.js";
 import { Hud } from "./Hud.js";
 import { GameState } from "../game/StateManager.js";
@@ -6,24 +7,11 @@ export class Renderer {
   constructor(canvas) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
-    this.sprites = new SpriteFactory();
+    this.assets = new AssetManager();
+    this.sprites = new SpriteFactory(this.assets);
     this.hud = new Hud();
-    this.splashImage = null;
-    this.loadOptionalSplash();
     this.resize();
     window.addEventListener("resize", () => this.resize());
-  }
-
-  loadOptionalSplash() {
-    fetch("./assets/splash.png", { method: "HEAD", cache: "no-store" })
-      .then((response) => {
-        if (!response.ok) {
-          return;
-        }
-        this.splashImage = new Image();
-        this.splashImage.src = "./assets/splash.png";
-      })
-      .catch(() => {});
   }
 
   resize() {
@@ -146,19 +134,39 @@ export class Renderer {
   renderBleach(ctx, game) {
     for (const puddle of game.bleachPuddles) {
       const alpha = 1 - puddle.age / puddle.life;
+      if (this.assets.drawSprite(ctx, "effect.bleach_puddle", puddle.x, puddle.y, {
+        time: game.time + puddle.age,
+        scale: (puddle.radius * 2.2) / 128,
+        alpha
+      })) {
+        continue;
+      }
       const gradient = ctx.createRadialGradient(puddle.x, puddle.y, 0, puddle.x, puddle.y, puddle.radius);
-      gradient.addColorStop(0, `rgba(206,255,242,${0.42 * alpha})`);
-      gradient.addColorStop(1, `rgba(108,255,205,${0.03 * alpha})`);
+      gradient.addColorStop(0, `rgba(245,255,252,${0.5 * alpha})`);
+      gradient.addColorStop(0.48, `rgba(217,255,246,${0.28 * alpha})`);
+      gradient.addColorStop(1, `rgba(180,255,240,${0.04 * alpha})`);
       ctx.fillStyle = gradient;
       ctx.beginPath();
       ctx.arc(puddle.x, puddle.y, puddle.radius, 0, Math.PI * 2);
       ctx.fill();
+      ctx.strokeStyle = `rgba(250,255,255,${0.25 * alpha})`;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(puddle.x, puddle.y, puddle.radius * (0.75 + Math.sin(game.time * 3 + puddle.x) * 0.08), 0, Math.PI * 2);
+      ctx.stroke();
     }
   }
 
   renderFungalMats(ctx, game) {
     for (const mat of game.fungalMats) {
       const alpha = 1 - mat.age / mat.life;
+      if (this.assets.drawSprite(ctx, "effect.fungal_mat", mat.x, mat.y, {
+        time: game.time + mat.age,
+        scale: (mat.radius * 2.35) / 160,
+        alpha
+      })) {
+        continue;
+      }
       const gradient = ctx.createRadialGradient(mat.x, mat.y, 0, mat.x, mat.y, mat.radius);
       gradient.addColorStop(0, `rgba(209,142,255,${0.28 * alpha})`);
       gradient.addColorStop(0.72, `rgba(106,58,130,${0.18 * alpha})`);
@@ -177,6 +185,13 @@ export class Renderer {
 
   renderPickups(ctx, game) {
     for (const sugar of game.sugarCubes) {
+      if (this.assets.drawSprite(ctx, "pickup.sugar_cube", sugar.x, sugar.y, {
+        time: game.time,
+        rotation: Math.PI / 4 + Math.sin(game.time + sugar.x) * 0.08,
+        scale: 0.75
+      })) {
+        continue;
+      }
       ctx.save();
       ctx.translate(sugar.x, sugar.y);
       ctx.rotate(Math.PI / 4 + Math.sin(game.time + sugar.x) * 0.08);
@@ -190,6 +205,22 @@ export class Renderer {
 
     for (const pickup of game.weaponPickups) {
       const color = pickup.weaponType === "flame" ? "#ff7b28" : "#9ffff0";
+      const assetId = pickup.weaponType === "flame" ? "pickup.weapon_flame" : "pickup.weapon_bleach";
+      if (this.assets.drawSprite(ctx, assetId, pickup.x, pickup.y, {
+        time: game.time,
+        rotation: Math.sin(game.time * 2) * 0.08,
+        scale: 0.78
+      })) {
+        ctx.save();
+        ctx.translate(pickup.x, pickup.y);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(0, 0, 31 + Math.sin(game.time * 4) * 2, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+        continue;
+      }
       ctx.save();
       ctx.translate(pickup.x, pickup.y);
       ctx.rotate(game.time * 1.5);
@@ -205,6 +236,13 @@ export class Renderer {
 
     for (const tank of game.tankPickups) {
       const color = tank.tankType === "flame" ? "#ff9b30" : "#9ffff0";
+      const assetId = tank.tankType === "flame" ? "pickup.tank_fuel" : "pickup.tank_bleach";
+      if (this.assets.drawSprite(ctx, assetId, tank.x, tank.y, {
+        time: game.time,
+        scale: 0.78
+      })) {
+        continue;
+      }
       ctx.save();
       ctx.translate(tank.x, tank.y);
       ctx.strokeStyle = color;
@@ -244,14 +282,23 @@ export class Renderer {
   }
 
   renderFlameCone(ctx, cone) {
-    const gradient = ctx.createRadialGradient(cone.x, cone.y, 10, cone.x, cone.y, cone.length);
+    const visualX = cone.visualX ?? cone.x;
+    const visualY = cone.visualY ?? cone.y;
+    if (this.assets.drawSprite(ctx, "effect.flame_cone", visualX, visualY, {
+      time: performance.now() / 1000,
+      rotation: cone.facing,
+      scale: cone.length / 192
+    })) {
+      return;
+    }
+    const gradient = ctx.createRadialGradient(visualX, visualY, 10, visualX, visualY, cone.length);
     gradient.addColorStop(0, "rgba(255,240,113,0.74)");
     gradient.addColorStop(0.55, "rgba(255,88,32,0.34)");
     gradient.addColorStop(1, "rgba(255,40,20,0)");
     ctx.fillStyle = gradient;
     ctx.beginPath();
-    ctx.moveTo(cone.x, cone.y);
-    ctx.arc(cone.x, cone.y, cone.length, cone.facing - cone.halfAngle, cone.facing + cone.halfAngle);
+    ctx.moveTo(visualX, visualY);
+    ctx.arc(visualX, visualY, cone.length, cone.facing - cone.halfAngle, cone.facing + cone.halfAngle);
     ctx.closePath();
     ctx.fill();
   }
@@ -275,9 +322,15 @@ export class Renderer {
       ctx.stroke();
 
       ctx.fillStyle = tendril.latched ? "rgba(255,155,210,0.9)" : "rgba(218,68,156,0.75)";
-      ctx.beginPath();
-      ctx.arc(tip.x, tip.y, tendril.latched ? 13 : 9, 0, Math.PI * 2);
-      ctx.fill();
+      if (!this.assets.drawSprite(ctx, "effect.alien_tendril_tip", tip.x, tip.y, {
+        time: time + tendril.age,
+        scale: tendril.latched ? 0.52 : 0.4,
+        rotation: tendril.angle
+      })) {
+        ctx.beginPath();
+        ctx.arc(tip.x, tip.y, tendril.latched ? 13 : 9, 0, Math.PI * 2);
+        ctx.fill();
+      }
     }
   }
 
@@ -290,14 +343,14 @@ export class Renderer {
       this.centerMessage(ctx, width, height, "Dish Cleared", `Bonus banked. Press Enter for Dish ${game.levelNumber + 1}`);
     }
     if (game.state.is(GameState.GAME_OVER)) {
+      const screen = game.jack.lastDamageType === "alien" ? "death.alien" : "death.generic";
+      this.renderDeathScreen(ctx, screen, width, height);
       this.centerMessage(ctx, width, height, "Jack Is Gone", `${game.deathMessage} Press R to restart.`);
     }
   }
 
   renderSplash(ctx, game, width, height) {
-    const imageReady = this.splashImage?.complete && this.splashImage.naturalWidth > 0;
-    if (imageReady) {
-      ctx.drawImage(this.splashImage, 0, 0, width, height);
+    if (this.assets.drawScreen(ctx, "splash", 0, 0, width, height)) {
       ctx.fillStyle = "rgba(0,0,0,0.42)";
       ctx.fillRect(0, 0, width, height);
     } else {
@@ -334,6 +387,14 @@ export class Renderer {
     ctx.font = "800 23px Inter, Segoe UI, sans-serif";
     ctx.fillText("Press Enter to start", width / 2, height * 0.68);
     ctx.textAlign = "start";
+  }
+
+  renderDeathScreen(ctx, screen, width, height) {
+    if (!this.assets.drawScreen(ctx, screen, 0, 0, width, height)) {
+      return;
+    }
+    ctx.fillStyle = "rgba(0,0,0,0.46)";
+    ctx.fillRect(0, 0, width, height);
   }
 
   centerMessage(ctx, width, height, title, subtitle) {
