@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Petri Jack icon">
+  <defs>
+    <radialGradient id="dish" cx="48%" cy="45%" r="58%">
+      <stop offset="0" stop-color="#314727"/>
+      <stop offset="0.55" stop-color="#182616"/>
+      <stop offset="1" stop-color="#060806"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <circle cx="128" cy="128" r="116" fill="url(#dish)" stroke="#d4efe8" stroke-width="7"/>
+  <path d="M91 150c14-13 23-36 45-31 19 4 23 24 14 40-12 23-52 24-59-9z" fill="#f2c230" stroke="#151306" stroke-width="7"/>
+  <path d="M124 69c28 14 47 47 27 75-5-32-25-42-49-50 14-5 17-14 22-25z" fill="#d96b22" filter="url(#glow)"/>
+  <circle cx="124" cy="101" r="18" fill="#f1c8a4" stroke="#151306" stroke-width="5"/>
+  <path d="M54 52c54 24 99 93 148 145" fill="none" stroke="#80ffb7" stroke-width="9" stroke-linecap="round" opacity=".78"/>
+  <circle cx="61" cy="55" r="13" fill="#caff78"/>
+  <circle cx="201" cy="198" r="12" fill="#ff5b74"/>
+</svg>

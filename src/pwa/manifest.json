@@ -1,0 +1,19 @@
+{
+  "name": "Petri Jack",
+  "short_name": "Petri Jack",
+  "description": "A top-down bio-horror arcade extermination game.",
+  "start_url": "../../index.html",
+  "scope": "../../",
+  "display": "standalone",
+  "background_color": "#050805",
+  "theme_color": "#11170f",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "../../assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
